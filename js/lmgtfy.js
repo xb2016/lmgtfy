@@ -105,13 +105,35 @@ function gtest(){
     $.ajax({
         type:"get",
         cache:false,
-        url:"https://www.google.com.hk/",
+        url:"",
         dataType:"jsonp",
         processData:false,
         timeout:5000,
         complete:function(data){
-            if(data.status==200){$(".search-text").attr("data-site","google");}else{$(".search-text").attr("data-site","google2");}
+            if(data.status==200){}else{}
         }
     });
 }
+
+function gtest() {
+    var img = new Image;
+    // 处理加载超时
+    var timeout = setTimeout(function() {
+        img.onerror = img.onload = null;
+        $(".search-text").attr("data-site","google2");
+    }, 3000);
+
+    img.onerror = () => {
+        clearTimeout(timeout);
+        $(".search-text").attr("data-site","google2");
+    }
+
+    img.onload = () => {
+        clearTimeout(timeout);
+        $(".search-text").attr("data-site","google");
+    }
+
+    img.src = "https://www.google.com.hk/favicon.ico" + +(new Date)
+}
+
 window.onload = function(){gtest();window.setInterval("gtest()",10000);}

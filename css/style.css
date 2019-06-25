@@ -1,0 +1,46 @@
+/* www.fczbl.vip */
+*{font-family:"Helvetica Neue",Helvetica,Microsoft Yahei,Hiragino Sans GB,WenQuanYi Micro Hei,sans-serif}
+body{height:100%;width:100%;overflow:hidden;padding:0;margin:0}
+.about{position:absolute;top:1em;right:1em;height:1.5em;line-height:1.5em;width:1.5em;border-radius:.75em;font-size:16px;text-align:center;color:#fff;background-color:rgba(0,0,0,.05);cursor:pointer}
+.pop-box{z-index:10001;margin-bottom:2px;display:none;position:fixed;background:#FFF;text-align:center;font-size:16px;width:300px}   
+.pop-box .caption{font-size:23px;display:block;text-align:left;border-left:4px solid #563d7c;margin:10px 0 10px 5px;background:#eee;padding:3px;color:#666}  
+.pop-box .thanks{padding:0 10px;text-align:left;line-height:25px;color:#555}
+.pop-box .thanks a{margin:0 2px;color:#666;text-decoration:none} 
+.pop-box .thanks a:hover{margin:0 2px;color:#666;text-decoration:underline} 
+.pop-box .readit{font-size:14px;line-height:40px;cursor:pointer;transition:all 0.5s ease;-webkit-transition:all 0.5s ease;-moz-transition:all 0.5s ease}
+.pop-box .readit:hover{color:#666}
+.mask{color:#C7EDCC;background-color:#000;z-index:10000;position:absolute;top:0;left:0;opacity:0.59;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity = 59);filter:alpha(opacity = 59)} 
+.container{height:100%;width:100%;overflow:hidden;text-align:center}
+.title{padding-bottom:5px;font-size:25px}
+#kw{width:570px;max-width:80%;padding:10px 17px;font:20px arial;outline:none;margin-right:0;border:1px solid #dfe1e5;border-radius:24px}
+#kw:focus{box-shadow:0 1px 6px 0 rgba(32,33,36,0.28);border-color:rgba(223,225,229,0)}
+.title0{margin-top:13%}
+.search-box{padding-top:18px}
+.search-button{padding-top:18px}
+.sicon{display:none}
+.btn{height:40px;background-color:#f2f2f2;border:1px solid #f2f2f2;border-radius:4px;color:#5F6368;cursor:pointer;font-family:arial,sans-serif;font-size:14px;margin:11px 4px;min-width:54px;padding:0 16px;text-align:center}
+.btn:hover,button.link_button:hover{border:1px solid #c6c6c6;box-shadow:0 1px 1px rgba(0,0,0,0.1);color:#222}
+.logo{height:90px;margin-bottom:-13px}
+#instructions{margin-top:12px;color:#222;font-size:small;width:100%}
+.link{display:block;margin-top:15px}
+button.link_button{width:100px;height:35px;background-color:#f2f2f2;border:1px solid #f2f2f2;border-radius:4px;color:#5F6368;cursor:pointer;font-family:arial,sans-serif;font-size:0.9em;margin:0 10px;padding:0 16px;text-align:center}
+.copyable{width:300px;height:30px;font-size:25px;margin-bottom:20px;vertical-align:middle;text-align:center;border:1px solid #dfe1e5}
+#arrow{display:none;position:absolute;left:0;top:0;z-index:999}
+footer{color:#5f6368;font-size:14px;bottom:0;display:block;position:absolute;width:100%;background:#f2f2f2;border-top:1px solid #e4e4e4;padding:10px 0px;z-index:-1}
+footer span{margin-left:25px}
+footer a{color:#5f6368;text-decoration:none}
+@media screen and (max-width:666px){
+  .title0{margin-top:30%}
+  .title{font-size:20px;font-weight:400}
+  .logo{height:50px;margin-bottom:-8px}
+  .search-box{padding-top:10px;display:block;width:100%}
+  #kw{height:20px;font:16px arial}
+  .btn{height:42px;position:absolute;width:42px;padding:8px;margin-left:33%;margin-top:-60px;border-radius:24px;background:transparent;border:none;color:#3b78e7;cursor:pointer;fill:currentColor;min-width:42px}
+  .btn:hover{border:none;box-shadow:none;color:#3b78e7}
+  .sicon{display:block}
+  .stext,#search2{display:none}
+  #instructions{margin-top:12px}
+  .link{margin-top:30px}
+  a.link_button{display:inline-block;width:100px;height:35px;line-height:38px;margin:0 10px;background-color:#38f;color:white;text-align:center;font-size:0.8em;text-decoration:none}
+  .copyable{width:80%;height:30px;font-size:20px;margin-bottom:20px;vertical-align:middle}
+}

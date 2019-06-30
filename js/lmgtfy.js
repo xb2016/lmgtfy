@@ -101,25 +101,21 @@ function hideAbout(){
     $("#msgbox").fadeOut(200); 
 }
 
-function gtest() {
-    var img = new Image(); // 处理加载超时
-
-    var timeout = setTimeout(function () {
+function gtest(){
+    var img = new Image();
+    var timeout = setTimeout(function(){
         img.onerror = img.onload = null;
-        $(".search-text").attr("data-site", "google2");
-    }, 3000);
-
-    img.onerror = function () {
+        $(".search-text").attr("data-site","google2");
+    },3000);
+    img.onerror = function(){
         clearTimeout(timeout);
-        $(".search-text").attr("data-site", "google2");
+        $(".search-text").attr("data-site","google2");
     };
-
     img.onload = function () {
         clearTimeout(timeout);
-        $(".search-text").attr("data-site", "google");
+        $(".search-text").attr("data-site","google");
     };
-
-    img.src = "https://www.google.com.hk/favicon.ico" + +new Date();
+    img.src = "https://www.google.com.hk/favicon.ico?"+ +new Date();
 }
 
 window.onload = function(){gtest();window.setInterval("gtest()",10000);}

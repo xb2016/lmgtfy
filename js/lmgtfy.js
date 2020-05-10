@@ -13,15 +13,15 @@ $(document).ready(function(){
     $('#search').on('click',function(){
         var link = window.location.origin + window.location.pathname + '?' + urlEncode($('#kw').val());
         $.ajax({ 
-            url: 'get.php?longUrl='+link,  
+            url: 'get.php?url='+link,  
             type: "GET",
-            dataType: "jsonp",
+            dataType: "json",
             cache: false,
             success: function (data) {
                 if (data){
-                    if(!(typeof data.urls === undefined || typeof data.urls == "undefined"))   //防止短网址失败
+                    if(!(typeof data.result === undefined || typeof data.result == "undefined"))   //防止短网址失败
                     {
-                        link = data.urls[0].url_short;
+                        link = data.result;
                     }
                 }
                 $('#go').attr("href",link);

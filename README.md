@@ -1,11 +1,11 @@
 <p align="center">
-<img src="https://img.fczbl.vip/images/2019/06/25/lmgtfy.png" alt="让我帮你谷歌一下">
+<img src="https://github.com/xb2016/lmgtfy/raw/master/lmgtfy.png" alt="让我帮你谷歌一下">
 </p>
 
 <h3 align="center"> 「Let Me Google That For You」</h3>
 
 <p align="center">
-<a href="https://www.fczbl.vip"><img alt="Author" src="https://img.shields.io/badge/Author-Moedog-blue.svg?style=flat-square"></a>
+<img alt="Author" src="https://img.shields.io/badge/Author-Moedog-blue.svg?style=flat-square">
 <img alt="License" src="https://img.shields.io/github/license/xb2016/lmgtfy.svg?style=flat-square"/>
 </p>
 
@@ -17,7 +17,7 @@
 
 基于这两个项目：[https://github.com/bangbang93/lmbtfy.cn](https://github.com/bangbang93/lmbtfy.cn) 以及 [https://github.com/mengkunsoft/lmbtfy](https://github.com/mengkunsoft/lmbtfy)
 
-演示站点：[https://www.fczbl.vip/google/](https://www.fczbl.vip/google/)
+演示站点：[https://moedog.org/tools/google/](https://moedog.org/tools/google/)
 
 ## 食用注意
 
@@ -35,4 +35,4 @@
 
 **lmgtfy** © [Moedog](https://github.com/xb2016), Released under the [MIT](./LICENSE) License.<br>
 
-> Blog [fczbl.vip](https://www.fczbl.vip) · GitHub [@xb2016](https://github.com/xb2016) · Twitter [@fczbl](https://twitter.com/fczbl)
+> Blog [moedog.org](https://moedog.org) · GitHub [@xb2016](https://github.com/xb2016) · Twitter [@moesdog](https://twitter.com/moesdog)

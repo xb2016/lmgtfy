@@ -19,13 +19,19 @@ body{height:100%;width:100%;overflow:hidden;padding:0;margin:0}
 .search-button{padding-top:18px}
 .sicon{display:none}
 .btn{height:40px;background-color:#f2f2f2;border:1px solid #f2f2f2;border-radius:4px;color:#5F6368;cursor:pointer;font-family:arial,sans-serif;font-size:14px;margin:11px 4px;min-width:54px;padding:0 16px;text-align:center}
-.btn:hover,button.link_button:hover{border:1px solid #c6c6c6;box-shadow:0 1px 1px rgba(0,0,0,0.1);color:#222}
+.btn:hover,button.link_button:hover,#output button:hover{border:1px solid #c6c6c6;box-shadow:0 1px 1px rgba(0,0,0,0.1);color:#222}
 .logo{height:90px;margin-bottom:-13px}
-#instructions{margin-top:12px;color:#222;font-size:small;width:100%}
-.link{display:block;margin-top:15px}
-button.link_button{width:100px;height:35px;background-color:#f2f2f2;border:1px solid #f2f2f2;border-radius:4px;color:#5F6368;cursor:pointer;font-family:arial,sans-serif;font-size:0.9em;margin:0 10px;padding:0 16px;text-align:center}
-.copyable{width:300px;height:30px;font-size:25px;margin-bottom:20px;vertical-align:middle;text-align:center;border:1px solid #dfe1e5}
-#arrow{display:none;position:absolute;left:0;top:0;z-index:999}
+#function{width:100%;min-height:220px;text-align:center}
+#tips{color:#9195a3;font-size:16px}
+#stop{display:none;border:none;padding:8px 15px;border-radius:100px;color:#bababa;background:#f1f1f1;outline:none;cursor:pointer;margin-top:20px}
+#output{display:none;width:100%;max-width:400px;margin:20px auto}
+#output textarea{width:90%;padding:5px 8px;border-radius:3px;border:1px solid #c8c8c8;outline:none;word-break:break-all}
+#output textarea:focus{border-color:#4285f4;box-shadow:0 0 2px #4285f4}
+#output .tool-btns{text-align:right;margin-top:8px}
+#output button{border:1px solid #f2f2f2;border-radius:4px;color:#5F6368;cursor:pointer;margin-left:8px;padding:6px 14px;height:auto}
+#arrow{display:none;position:absolute;left:0;top:0;width:50px;height:50px;z-index:999;background:url(../img/arrow.png) no-repeat}
+#arrow::after{content:'';position:absolute;top:-13px;left:-15px;z-index:-1;border-radius:9em;box-shadow:0 0 0 7px rgba(0,0,0,.4);width:30px;height:30px;opacity:0}
+#arrow.active::after{-webkit-animation:bubble-scale 1s ease;animation:bubble-scale 1s ease}
 footer{color:#5f6368;font-size:14px;bottom:0;display:block;position:absolute;width:100%;background:#f2f2f2;border-top:1px solid #e4e4e4;padding:10px 0px;z-index:-1}
 footer span{margin-left:25px}
 footer a{color:#5f6368;text-decoration:none}
@@ -39,8 +45,8 @@ footer a{color:#5f6368;text-decoration:none}
   .btn:hover{border:none;box-shadow:none;color:#3b78e7}
   .sicon{display:block}
   .stext,#search2{display:none}
-  #instructions{margin-top:12px}
-  .link{margin-top:30px}
-  a.link_button{display:inline-block;width:100px;height:35px;line-height:38px;margin:0 10px;background-color:#38f;color:white;text-align:center;font-size:0.8em;text-decoration:none}
-  .copyable{width:80%;height:30px;font-size:20px;margin-bottom:20px;vertical-align:middle}
+  #function{padding:0 10px}
+  #arrow{background:url(../img/hand.png) no-repeat}
 }
+@-webkit-keyframes bubble-scale{from{transform:scale(0);opacity:1}to{transform:scale(2);opacity:0}}
+@keyframes bubble-scale{from{transform:scale(0);opacity:1}to{transform:scale(2);opacity:0}}

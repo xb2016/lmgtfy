@@ -15,12 +15,16 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <meta name="keywords" content="小白-白,犬's Blog,犬,Google,谷歌,伸手党">
     <meta name="description" content="让我帮你 Google 一下，伸手党专治～">
-    <title>让我帮你 Google 一下</title>
+    <title>让我帮你 Google 一下 | Let Me Google That For You</title>
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link href="opensearch.xml" rel="search" type="application/opensearchdescription+xml" title="lmgtfy">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/base64.min.js"></script>
+    <script src="js/clipboard.min.js"></script>
+    <script src="js/lmgtfy.js"></script>
   </head>
   <body>
-    <img src="img/arrow.png" id="arrow">
+    <section id="main">
     <div class="about" title="关于" onclick="showAbout()">?</div>
     <div id="msgbox" class="pop-box">
         <span class="caption">专治各种伸手党</span>
@@ -47,22 +51,24 @@
                 <button class="btn" id="search2">&nbsp;手气不错&nbsp;</button>
             </div>
         </div>
-        <div id="instructions">
-            输入一个问题，然后按 Google 搜索
-        </div>
-        <div class="link" style="display: none" id="link">
-            <input type="text" readonly id="lmgtfyLink" class="copyable">
-            <div>
-                <button class="link_button" id="copy" data-clipboard-target="#lmgtfyLink">复制</button>
-                <button class="link_button" id="go" target="_blank">预览</button>
+    </div>
+    </section>
+    <section id="function">
+        <p id="tips">输入一个问题，然后按 Google 搜索</p>
+        
+        <button id="stop">快停下！我是自己人</button>
+        
+        <div id="output">
+            <textarea id="url-output" rows="3" readonly></textarea>
+            <div class="tool-btns">
+                <button data-clipboard-target="#url-output">复制</button>
+                <button id="preview">预览</button>
             </div>
         </div>
-    </div>
+    </section>
     <footer>
         <span>&copy; <script>document.write(new Date().getFullYear())</script> <a href="https://prprpr.love" target="_blank">Moedog</a>. All Rights Reserved.</span>
-        <script src="js/jquery.min.js"></script>
-        <script src="js/clipboard.js"></script>
-        <script src="js/lmgtfy.js"></script>
     </footer>
+    <div id="arrow"></div>
   </body>
 </html>

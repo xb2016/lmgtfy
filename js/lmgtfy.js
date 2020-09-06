@@ -1,92 +1,138 @@
 /**
- * Created by bangbang on 14/10/10.
- * Revised by mengkun on 17/03/16.
- * Updated by Moedog on 19/06/17.
- */
- 
-function urlEncode(String){
-    return encodeURIComponent(String).replace(/'/g,"%27").replace(/"/g,"%22");    
+ * 基于 mengkun(https://mkblog.cn) 的 https://github.com/mengkunsoft/lmbtfy 修改而成
+ * 转载或使用时，还请保留以上信息，谢谢！
+ */ 
+
+/* 低版本 IE polyfill */ 
+if(!window.location.origin) {
+    window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
 }
- 
-$(document).ready(function(){
-    var copy = new Clipboard('#copy');
-    $('#search').on('click',function(){
-        var link = window.location.origin + window.location.pathname + '?' + urlEncode($('#kw').val());
-        $.ajax({ 
-            url: 'get.php?url='+link,  
-            type: "GET",
-            dataType: "json",
-            cache: false,
-            success: function (data) {
-                if (data){
-                    if(!(typeof data.result === undefined || typeof data.result == "undefined"))   //防止短网址失败
-                    {
-                        link = data.result;
-                    }
-                }
-                $('#go').attr("href",link);
-                $('#link').show();
-                $('#instructions').text('复制下面的地址,然后发给伸手党吧！');
-                $('#lmgtfyLink').val(link).focus().select();
-            }
-        })
-    });
-    $('#search2').on('click',function(){
-        if($(".search-text").attr("data-site")=="google"){window.location = 'https://www.google.com.hk/search?q=' + urlEncode($('#kw').val());}else{window.location = 'https://www.loli.cab/search?q=' + urlEncode($('#kw').val());}
-    });
-    var $container = $('.container');
-    $container.on('click','#go',function(){
-        var link = $('#lmgtfyLink').val();
-        if (!!link){
-            window.open(link);
-            //window.location = link;
+
+/* 扩展一个getUrlParam的方法 */
+$.getUrlParam = function(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r !== null) return unescape(r[2]); return null;
+};
+
+$(function() {
+    var $kw = $('#kw'),
+        $searchSubmit = $('#search'),
+        $urlOutput = $('#url-output'),
+        $tips = $('#tips'),
+        $stop = $('#stop'),
+        $arrow = $('#arrow');
+    
+    var stepTimeout, typeInterval;
+
+    /* 获取并解析查询参数。参数加 Base64 编码是防止别人直接从链接中猜出了结果，而拒绝点击 */ 
+    var query = $.getUrlParam('q');
+    if(!!query) {
+        try {
+            query = Base64.decode(query);
+        } catch(e) {
+            console.log(e);
         }
-    });
-    var $kw = $('#kw');
-    $kw.on('keydown', function (e) {
-        if (e.keyCode == 13){
-            $('#search').trigger('click');
-        }
-    });
-    if (!!window.location.search){
-        var kw = decodeURIComponent(window.location.search.substr(1));
-        var $instructions = $('#instructions');
-        var $arrow = $('#arrow');
-        setTimeout(function (){
-            $instructions.text('1、找到输入框并选中');
-            $arrow.show().animate({
-                left: $kw.offset().left + 10 + 'px',
-                top: ($kw.offset().top + $kw.height()/2) + 'px'
-            }, 2000, function (){
-                $instructions.text('2、输入你的问题');
-                $arrow.hide();
-                var $kw = $('#kw');
-                $kw.focus();
-                var i = 0;
-                var interval = setInterval(function (){
-                    $kw.val(kw.substr(0,i));
-                    i++;
-                    if (i > kw.length){
-                        clearInterval(interval);
-                        $instructions.text('3、按下“Google 搜索”按钮');
-                        $arrow.show();
-                        var $search = $('#search');
-                        $arrow.animate({
-                            left: $search.offset().left + $search.width()/2 + 'px',
-                            top: $search.offset().top + $search.height()/2 + 'px'
-                        }, 1000, function () {
-                            $instructions.html('<strong>这对你而言就是那么困难么？</strong>');
-                            setTimeout(function (){
-                                if($(".search-text").attr("data-site")=="google"){window.location = 'https://www.google.com.hk/search?q=' + encodeURIComponent(kw);}else{window.location = 'https://www.loli.cab/search?q=' + encodeURIComponent(kw);}
-                            }, 2000);
-                        })
-                    }
-                }, 200);
+    }
+
+    /* 有参数，启动教程 */
+    if(!!query) {
+        $tips.html('让我来教你正确的打开方式');
+        $stop.fadeIn();
+
+        stepTimeout = setTimeout(function() {
+            $tips.html('1、找到输入框并选中');
+
+            $arrow.removeClass('active').show().animate({
+                left: $kw.offset().left + 20 + 'px',
+                top: ($kw.offset().top + $kw.outerHeight() / 2) + 'px'
+            }, 2000, function () {
+                $tips.html('2、输入你要找的内容');
+                $arrow.addClass('active');
+
+                stepTimeout = setTimeout(function() {
+                    $arrow.fadeOut();
+
+                    var i = 0;
+                    typeInterval = setInterval(function () {
+                        $kw.val(query.substr(0, i));
+                        if (++i > query.length) {
+                            clearInterval(typeInterval);
+                            $tips.html('3、点击下“Google 搜索”按钮');
+
+                            $arrow.removeClass('active').fadeIn().animate({
+                                left: $searchSubmit.offset().left + $searchSubmit.width()  / 2 + 'px',
+                                top:  $searchSubmit.offset().top  + $searchSubmit.height() / 2 + 'px'
+                            }, 1000, function () {
+                                $tips.html('<strong>怎么样，学会了吗？</strong>');
+                                $arrow.addClass('active');
+
+                                stepTimeout = setTimeout(function () {
+                                    if ($(".search-text").attr("data-site") == "google") {
+                                        window.location = 'https://www.google.com.hk/search?q=' + encodeURIComponent(query);
+                                    } else {
+                                        window.location = 'https://www.loli.cab/search?q=' + encodeURIComponent(query);
+                                    }
+                                }, 1000);
+                            });
+                        }
+                    }, 200);
+                }, 500);
             });
         }, 1000);
     }
+
+    /* 自己人，停下 */ 
+    $stop.click(function() {
+        clearTimeout(stepTimeout);
+        clearInterval(typeInterval);
+        $stop.hide();
+        $arrow.stop().hide();
+        $kw.val(query);
+        query = false;
+        $tips.html('输入一个问题，然后按 Google 搜索');
+    });
+
+    /* 提交 */
+    $('#search').on('click', function() {
+        if(!!query) return false;
+
+        var question = $.trim($kw.val());
+        if(!question) {
+            $tips.html('<span style="color: red">搜了个寂寞？</span>');
+            $kw.val('');
+        } else {
+            $tips.html('↓↓↓ 复制下面的链接，教伸手党使用谷歌');
+            $('#output').fadeIn();
+            $urlOutput.val(window.location.origin + window.location.pathname + '?q=' + Base64.encode(question)).focus().select();
+        }
+        return false;
+    });
+
+    /* 复制结果 */ 
+    var clipboard = new ClipboardJS('[data-clipboard-target]');
+    clipboard.on('success', function(e) {
+        $tips.html('<span style="color: #4caf50">复制成功! 赶紧把链接甩给伸手党们!</span>');
+    });
+    clipboard.on('error', function(e) {
+        $tips.html('<span style="color: red">复制失败，请手动复制</span>');
+    });
+
+    /* 预览 */ 
+    $('#preview').click(function() {
+        var link = $urlOutput.val();
+        if (!!link) {
+            window.open(link);
+        }
+    });
+
+    /* 手气不错 */ 
+    $('#search2').on('click',function(){
+        if($(".search-text").attr("data-site")=="google"){window.location = 'https://www.google.com.hk/search?q=' + urlEncode($('#kw').val());}else{window.location = 'https://www.loli.cab/search?q=' + urlEncode($('#kw').val());}
+    });
 });
 
+/* 关于 */
 function showAbout(){
     var windowWidth = $(window).width();
     var windowHeight = $(window).height();
@@ -95,12 +141,12 @@ function showAbout(){
     $("#mask").width(windowWidth).height(windowHeight).click(function(){hideAbout();}).fadeIn(200); 
     $("#msgbox").css({"position": "absolute","left":windowWidth/2-popupWidth/2,"top":windowHeight/2-popupHeight/2}).fadeIn(200); 
 }
-
 function hideAbout(){
     $("#mask").fadeOut(200);
     $("#msgbox").fadeOut(200); 
 }
 
+/* Google 测试 */
 function gtest(){
     var img = new Image();
     var timeout = setTimeout(function(){
@@ -117,5 +163,4 @@ function gtest(){
     };
     img.src = "https://www.google.com.hk/favicon.ico?"+ +new Date();
 }
-
 window.onload = function(){gtest();window.setInterval("gtest()",10000);}
